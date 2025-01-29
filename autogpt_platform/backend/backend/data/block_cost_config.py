@@ -71,6 +71,7 @@ MODEL_COST: dict[LlmModel, int] = {
     LlmModel.AMAZON_NOVA_PRO_V1: 1,
     LlmModel.MICROSOFT_WIZARDLM_2_8X22B: 1,
     LlmModel.GRYPHE_MYTHOMAX_L2_13B: 1,
+    LlmModel.LOCAL: 1,
 }
 
 for model in LlmModel:

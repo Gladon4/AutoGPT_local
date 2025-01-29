@@ -135,6 +135,8 @@ class LlmModel(str, Enum, metaclass=LlmModelMeta):
     AMAZON_NOVA_PRO_V1 = "amazon/nova-pro-v1"
     MICROSOFT_WIZARDLM_2_8X22B = "microsoft/wizardlm-2-8x22b"
     GRYPHE_MYTHOMAX_L2_13B = "gryphe/mythomax-l2-13b"
+    # Local Model
+    LOCAL = "local_llm"
 
     @property
     def metadata(self) -> ModelMetadata:
@@ -189,6 +191,7 @@ MODEL_METADATA = {
     LlmModel.AMAZON_NOVA_PRO_V1: ModelMetadata("open_router", 4000),
     LlmModel.MICROSOFT_WIZARDLM_2_8X22B: ModelMetadata("open_router", 4000),
     LlmModel.GRYPHE_MYTHOMAX_L2_13B: ModelMetadata("open_router", 4000),
+    LlmModel.LOCAL: ModelMetadata("local", 8192),
 }
 
 for model in LlmModel:
@@ -459,6 +462,12 @@ class AIStructuredResponseGeneratorBlock(AIBlockBase):
                 response.choices[0].message.content or "",
                 response.usage.prompt_tokens if response.usage else 0,
                 response.usage.completion_tokens if response.usage else 0,
+            )
+        elif provider == "local":
+            return (
+                "Response",
+                f"Prompt tokens: {456}",
+                f"completion tokens: {123}"
             )
         else:
             raise ValueError(f"Unsupported LLM provider: {provider}")
