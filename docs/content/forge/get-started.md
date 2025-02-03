@@ -3,7 +3,7 @@
 ## 🛠️ Build your own Agent 🛠️
 
 !!! warning
-    If you are trying to use AutoGPT this is not the tutorial for you! You need to use [this one](../AutoGPT/setup/index.md)
+    If you are trying to use AutoGPT this is not the tutorial for you! You need to use [this one](../classic/setup/index.md)
 
 Forge is a ready-to-go template for *your* agent application. All the boilerplate code is already handled, letting you channel all your creativity into the things that set *your* agent apart.
 
@@ -19,9 +19,9 @@ Forge is a ready-to-go template for *your* agent application. All the boilerplat
 
 ### 🚀 **Get Started!**
 
-The best way to get started is to fork or download the AutoGPT repository and look at the example agent in `forge/forge/agent/forge_agent.py`.
+The best way to get started is to fork or download the AutoGPT repository and look at the example agent in `classic/forge/agent/forge_agent.py`.
 This can work as a starting point for your own agent.
-Agents are built using *components* which provide different functionality, see the [Component Introduction](./components/introduction.md). You can find built-in components in `forge/forge/components/`.
+Agents are built using *components* which provide different functionality, see the [Component Introduction](./components/introduction.md). You can find built-in components in `classic/forge/components/`.
 
 !!! warning
     The tutorial series below is out of date.
