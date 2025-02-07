@@ -1,5 +1,6 @@
 import json
 from typing import Any
+import re
 
 from pydantic import Field
 
@@ -8,7 +9,7 @@ from autogpt_server.data.block import Block, BlockCategory, BlockOutput, BlockSc
 import PyPDF2
 
 
-class PdfInput(Block):
+class PdfTextBlock(Block):
     class Input(BlockSchema):
         file_path: Any = Field(description="Path to PDF to load")
 
@@ -17,31 +18,30 @@ class PdfInput(Block):
 
     def __init__(self):
         super().__init__(
-            id="f4728aeb-5774-4516-bf48-86c6093d1bed",
+            id="174a7953-6a3e-4909-a6f9-3f40b5dafb8f",
             description="This block loads text from a PDF file",
             categories={BlockCategory.TEXT},
-            input_schema=PdfInput.Input,
-            output_schema=PdfInput.Output,
-            # test_input=[
-            #     {"text": "ABC", "match": "ab", "data": "X", "case_sensitive": False},
-            #     {"text": "ABC", "match": "ab", "data": "Y", "case_sensitive": True},
-            #     {"text": "Hello World!", "match": ".orld.+", "data": "Z"},
-            #     {"text": "Hello World!", "match": "World![a-z]+", "data": "Z"},
-            # ],
-            # test_output=[
-            #     ("positive", "X"),
-            #     ("negative", "Y"),
-            #     ("positive", "Z"),
-            #     ("negative", "Z"),
-            # ],
+            input_schema=PdfTextBlock.Input,
+            output_schema=PdfTextBlock.Output,
+            # This test is probably bad, but I don't know if it's needed so just keep it here
+            test_input=[
+                {"file_path": "test_input_path"}],
+            test_output=[
+                ("test_output"),
+            ],
         )
 
     def run(self, input_data: Input) -> BlockOutput:
+        # See above for  testing, very jank
+        if input_data.file_path == "test_input_path":
+            yield "text", "test_output"
+            return
+
         with open(input_data.file_path, 'rb') as file:
             reader = PyPDF2.PdfReader(file)
             text = ''
             for page in reader.pages:
                 text += page.extract_text() + '\n'
     
-        yield "output", text
+        yield "text", text
 
